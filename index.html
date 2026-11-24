@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a2724" />
+    <meta name="description" content="Ondine: toko aquascape dengan tanaman, batu, kayu, soil, ikan, udang, akuarium, dan peralatan. Pesan lewat WhatsApp." />
+    <title>Ondine: toko aquascape dan studio rangkai</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F3B36'/%3E%3Cpath d='M8 24c0-8 3-13 8-16 5 3 8 8 8 16' fill='none' stroke='%23C9D63F' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <a class="skip" href="#app">Lewati ke konten</a>
+
+    <header class="top" id="top">
+      <a class="logo" href="#/" aria-label="Ondine, ke beranda"><svg class="mark" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="19" r="8" fill="currentColor"/><path d="M14 11C14 6 17 3 22 2c0 5-3 8-8 9z" fill="#C9D63F"/></svg><span>Ondine</span></a>
+      <nav class="nav" id="nav" aria-label="Utama">
+        <a href="#/toko">Toko</a>
+        <a href="#/panduan">Panduan</a>
+        <a href="#/toko-kami">Toko kami</a>
+      </nav>
+      <div class="top__right">
+        <a class="cartbtn" href="#/keranjang" aria-label="Buka keranjang">
+          Keranjang <span class="cartbtn__n" id="cartCount" hidden>0</span>
+        </a>
+        <button class="menubtn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+      </div>
+    </header>
+
+    <main id="app" tabindex="-1"></main>
+    <footer class="footer" id="footer"></footer>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
