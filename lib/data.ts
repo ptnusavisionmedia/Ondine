@@ -460,7 +460,7 @@ export const rupiah = (n: number) =>
 /** Jumlah minimum beli, dibaca dari satuan seperti "per ekor, min. 10". */
 export const minQty = (p: Product) => Math.min(p.stock || 1, Number(p.unit.match(/min\. (\d+)/)?.[1] ?? 1));
 
-export const byId =(id: string) => PRODUCTS.find((p) => p.id === id);
+export const byId = (id: string) => PRODUCTS.find((p) => p.id === id);
 export const catName = (id: CatId) => CATEGORIES.find((c) => c.id === id)!.name;
 
 /** Kode produk pendek untuk pesanan lewat WhatsApp. */

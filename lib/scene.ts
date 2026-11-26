@@ -2,12 +2,12 @@
    Seluruh adegan adalah fungsi dari progres (0..1) dan waktu, digambar di canvas. */
 
 export const STAGES = [
-  { at: 0.0, key: "air", label: "Air", href: "#/toko/akuarium" },
-  { at: 0.14, key: "substrat", label: "Substrat", href: "#/toko/substrat" },
-  { at: 0.3, key: "batu", label: "Batu", href: "#/toko/hardscape" },
-  { at: 0.48, key: "kayu", label: "Kayu", href: "#/toko/hardscape" },
-  { at: 0.6, key: "tanaman", label: "Tanaman", href: "#/toko/tanaman" },
-  { at: 0.84, key: "ikan", label: "Ikan", href: "#/toko/fauna" },
+  { at: 0.0, key: "air", label: "Air", href: "/toko/akuarium" },
+  { at: 0.14, key: "substrat", label: "Substrat", href: "/toko/substrat" },
+  { at: 0.3, key: "batu", label: "Batu", href: "/toko/hardscape" },
+  { at: 0.48, key: "kayu", label: "Kayu", href: "/toko/hardscape" },
+  { at: 0.6, key: "tanaman", label: "Tanaman", href: "/toko/tanaman" },
+  { at: 0.84, key: "ikan", label: "Ikan", href: "/toko/fauna" },
 ];
 
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));

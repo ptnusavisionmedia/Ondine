@@ -15,7 +15,7 @@ body {
 .foot .logo .mark { width: 28px; height: 28px; }
 
 /* pergantian halaman dan keranjang */
-#app.enter { animation: pageIn 0.45s var(--ease) both; }
+.page-enter { animation: pageIn 0.45s var(--ease) both; }
 @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
 .cartbtn__n.bump { animation: bump 0.5s var(--ease); }
 @keyframes bump { 0% { transform: scale(1); } 35% { transform: scale(1.35); } 100% { transform: scale(1); } }
@@ -34,6 +34,9 @@ body {
   font-variant-numeric: tabular-nums;
 }
 .plate__tag { left: auto; right: 10px; }
+/* gambar produk tetap menempel saat menggulir di layar lebar; di layar kecil mengalir biasa */
+.pdp__art { position: sticky; }
+@media (max-width: 860px) { .pdp__art { position: relative; top: 0; } }
 .plate__art svg, .cat__art svg, .pdp__art svg { filter: drop-shadow(0 10px 10px rgba(15, 40, 36, 0.12)); }
 
 /* hero: judul sedikit lebih besar */
@@ -172,7 +175,7 @@ body {
 .foot .logo { color: var(--haze); display: flex; }
 
 @media (prefers-reduced-motion: reduce) {
-  #app.enter, .styles__panel, .cartbtn__n.bump { animation: none; }
+  .page-enter, .styles__panel, .cartbtn__n.bump { animation: none; }
 }
 
 /* ============================================================
@@ -188,3 +191,6 @@ h1, h2, h3, .logo, .chapter__t, .sec-title, .page__title, .pdp__title, .specimen
 .chapter__t, .page__title, .sec-title, .specimen__title { letter-spacing: -0.032em; font-weight: 650; }
 .latin { font-weight: 400; }
 body { font-feature-settings: "ss01"; }
+
+/* Pembungkus ilustrasi SVG dari React: tidak ikut memengaruhi tata letak */
+.art { display: contents; }
