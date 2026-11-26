@@ -4,17 +4,21 @@
    lime drop-checker hanya untuk penanda status.
    ============================================================ */
 :root {
-  --glass: #e3eae2;
-  --glass-2: #d7e1d8;
-  --paper: #eff3ee;
-  --tank: #0f3b36;
-  --abyss: #0a2724;
-  --ink: #0b1f1d;
-  --mute: #4c6862;
-  --line: rgba(15, 59, 54, 0.18);
-  --lime: #c9d63f;
-  --wood: #8a5f3c;
-  --haze: #e9f1ea;
+  /* Air jernih: latar dingin & terang, teal dalam sebagai tinta, aqua hanya di area gelap,
+     ember (warna ember tetra) hanya untuk sinyal kecil seperti jumlah keranjang. */
+  --glass: #f3f8f8;   /* mist: latar halaman */
+  --glass-2: #e3eff0; /* shallow: bidang berwarna */
+  --paper: #ffffff;   /* foam: permukaan form */
+  --tank: #073b45;    /* deep: tinta utama, tombol */
+  --abyss: #04222a;   /* area gelap */
+  --current: #0f7f88; /* tautan & hover */
+  --ink: #0a2a31;
+  --mute: #56707a;
+  --line: rgba(7, 59, 69, 0.12);
+  --lime: #7fe0d6;    /* aqua glow, dipakai di atas latar gelap */
+  --ember: #ff7a45;
+  --wood: #0f7f88;
+  --haze: #e8f4f4;
 
   --sans: "Funnel Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
   --display: "Funnel Display Variable", "Funnel Sans Variable", system-ui, sans-serif;
@@ -165,12 +169,12 @@ body[data-hero="on"] .cartbtn:hover { background: var(--haze); color: var(--tank
 .band--tank .sec-lead { color: #a9c3be; }
 
 /* Tile warna per kategori */
-[data-cat="tanaman"] { --tile: #cfe0c2; }
-[data-cat="hardscape"] { --tile: #dad3c2; }
-[data-cat="substrat"] { --tile: #d4cab8; }
-[data-cat="fauna"] { --tile: #c3dbdc; }
-[data-cat="akuarium"] { --tile: #d2dde2; }
-[data-cat="peralatan"] { --tile: #d9dccb; }
+[data-cat="tanaman"] { --tile: #d6ebdd; }
+[data-cat="hardscape"] { --tile: #e2e6e4; }
+[data-cat="substrat"] { --tile: #e9e3d8; }
+[data-cat="fauna"] { --tile: #d3e9ef; }
+[data-cat="akuarium"] { --tile: #dbe8f1; }
+[data-cat="peralatan"] { --tile: #e0eae8; }
 
 .cats {
   display: grid; gap: 28px 22px;

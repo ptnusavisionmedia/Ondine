@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "ondine", "runtimeExecutable": "npm", "runtimeArgs": ["run", "start"], "port": 3000 }
+    { "name": "ondine", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 3000 }
   ]
 }

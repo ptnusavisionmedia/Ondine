@@ -1,0 +1,246 @@
+/* ============================================================
+   Tema "air jernih"
+   Bersih dan terang seperti kaca low-iron; satu momen besar (hero tangki),
+   sisanya tenang. Tile produk dibentuk seperti tangki kecil: tepi kaca
+   terang di atas, sedikit lebih dalam di bawah, garis air tipis.
+   Dimuat paling akhir.
+   ============================================================ */
+:root {
+  --r: 14px;      /* elemen kecil: input, thumbnail */
+  --r-tile: 22px; /* tile ilustrasi */
+  --r-panel: 28px;/* panel besar: form, kartu toko */
+  --head: 64px;
+  --shadow-float: 0 1px 2px rgba(4, 34, 42, 0.06), 0 12px 32px -12px rgba(4, 34, 42, 0.22);
+}
+
+body { background-image: none; font-size: 16.5px; }
+::selection { background: #bfeee8; color: var(--ink); }
+:focus-visible { outline-color: var(--current); }
+
+/* ---------- Header: bilah kaca yang melayang ---------- */
+.top {
+  top: 10px; left: var(--gutter); right: var(--gutter);
+  height: 56px; padding: 0 8px 0 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+  backdrop-filter: saturate(1.6) blur(14px); -webkit-backdrop-filter: saturate(1.6) blur(14px);
+  border: 1px solid rgba(7, 59, 69, 0.08);
+  box-shadow: var(--shadow-float);
+}
+body[data-hero="on"] .top {
+  background: rgba(4, 34, 42, 0.32);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-color: rgba(232, 244, 244, 0.12); box-shadow: none; color: var(--haze);
+}
+.logo { font-size: 21px; }
+.mark { width: 22px; height: 22px; }
+.mark path { fill: var(--current); }
+body[data-hero="on"] .top .mark path, .footer .mark path { fill: var(--lime); }
+
+.nav { gap: 4px; margin-left: 8px; font-size: 15px; }
+.nav a { padding: 8px 14px; border: 0; border-radius: 999px; transition: background 0.2s, color 0.2s; }
+.nav a:hover { background: rgba(7, 59, 69, 0.06); }
+.nav a[aria-current] { background: var(--glass-2); color: var(--tank); font-weight: 560; }
+body[data-hero="on"] .nav a:hover { background: rgba(232, 244, 244, 0.1); }
+body[data-hero="on"] .nav a[aria-current] { background: rgba(232, 244, 244, 0.14); color: #fff; }
+
+.cartbtn { border: 0; background: var(--tank); color: #fff; padding: 9px 10px 9px 18px; font-size: 14.5px; min-height: 40px; }
+.cartbtn:hover { background: var(--current); color: #fff; }
+body[data-hero="on"] .cartbtn { background: #fff; color: var(--tank); }
+body[data-hero="on"] .cartbtn:hover { background: var(--lime); color: var(--abyss); }
+.cartbtn__n { background: var(--ember); color: #fff; }
+.cartbtn:has(.cartbtn__n[hidden]) { padding-right: 18px; }
+.menubtn { border: 1px solid rgba(7, 59, 69, 0.2); min-height: 40px; font-size: 14.5px; }
+body[data-hero="on"] .menubtn { border-color: rgba(232, 244, 244, 0.35); }
+
+@media (max-width: 760px) {
+  .top { top: 8px; left: 12px; right: 12px; padding: 0 6px 0 14px; }
+  .nav {
+    top: calc(100% + 8px); left: 0; right: 0; padding: 8px; gap: 2px;
+    border-radius: 22px; border: 1px solid var(--line); background: #fff; box-shadow: var(--shadow-float);
+  }
+  .nav a { border: 0; padding: 14px 16px; border-radius: 14px; font-size: 17px; }
+  body[data-hero="on"] .nav a[aria-current] { background: var(--glass-2); color: var(--tank); }
+}
+
+/* ---------- Tombol ---------- */
+.btn { background: var(--tank); color: #fff; font-weight: 560; letter-spacing: -0.005em; min-height: 46px; }
+.btn:hover { background: var(--current); }
+.btn:disabled { background: #a9bec2; }
+.btn--small { min-height: 36px; padding: 7px 16px; background: var(--glass-2); color: var(--tank); }
+.btn--small:hover { background: var(--tank); color: #fff; }
+.btn--light { background: #fff; color: var(--tank); }
+.btn--light:hover { background: var(--lime); color: var(--abyss); }
+.link { color: var(--tank); text-decoration-color: rgba(15, 127, 136, 0.45); }
+.link:hover { color: var(--current); text-decoration-color: currentColor; }
+.link--btn { color: var(--mute); }
+
+/* ---------- Hero ---------- */
+.hero__track { background: var(--abyss); }
+.chapter__t { font-weight: 600; letter-spacing: -0.04em; }
+.chapter__p { color: #a9cdd0; }
+.steps { gap: 6px; padding: 6px; border-radius: 999px; background: rgba(4, 34, 42, 0.45); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(232, 244, 244, 0.1); }
+.steps button { color: #8fb3b7; }
+.steps .is-done { color: #cfe6e6; }
+.steps .is-on { background: var(--lime); color: var(--abyss); }
+.hero__rail i { background: linear-gradient(to bottom, var(--lime), #2fb3c4); }
+@media (max-width: 899px) {
+  .steps { left: 12px; right: 12px; max-width: none; justify-content: space-between; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; bottom: 14px; }
+}
+
+/* ---------- Tile ilustrasi: tangki kecil ---------- */
+.plate__art, .cat__art, .pdp__art, .row__art, .specimen__art, .guide__art, .page__plate, .article__art, .empty__art, .style__thumb {
+  border-radius: var(--r-tile);
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 38%),
+    linear-gradient(to top, rgba(7, 59, 69, 0.09), rgba(7, 59, 69, 0) 30%),
+    var(--tile, var(--glass-2));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(7, 59, 69, 0.06);
+  isolation: isolate;
+}
+/* garis permukaan air di bagian atas tile */
+.plate__art::after, .cat__art::after, .pdp__art::after, .specimen__art::after {
+  content: ""; position: absolute; inset: 14% 0 auto; height: 1px; z-index: 1; pointer-events: none;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.9) 20%, rgba(255, 255, 255, 0.9) 80%, transparent);
+  opacity: 0.8;
+}
+.row__art, .style__thumb { border-radius: 12px; }
+.plate__art svg, .cat__art svg, .pdp__art svg { filter: drop-shadow(0 12px 14px rgba(4, 34, 42, 0.14)); }
+.plate__no { color: rgba(10, 42, 49, 0.5); font-weight: 560; letter-spacing: 0.02em; left: 14px; top: 12px; }
+.plate__tag { top: 10px; right: 10px; background: rgba(255, 255, 255, 0.86); color: var(--tank); font-weight: 600; backdrop-filter: blur(6px); }
+
+/* ---------- Kartu produk ---------- */
+.grid { gap: 44px 24px; }
+.plate { gap: 14px; }
+.plate__name { font-size: 17.5px; font-weight: 560; }
+.plate__row { margin-top: 8px; }
+.price { font-weight: 600; letter-spacing: -0.01em; }
+.status::before { background: #3cc49a; box-shadow: 0 0 0 3px rgba(60, 196, 154, 0.18); }
+.status[data-s="low"]::before { background: var(--ember); box-shadow: 0 0 0 3px rgba(255, 122, 69, 0.18); }
+.status[data-s="out"]::before { background: #b6c6c9; box-shadow: none; }
+.meter i.on { background: var(--current); }
+.meter i { box-shadow: inset 0 0 0 1.5px rgba(7, 59, 69, 0.25); }
+
+/* ---------- Bagian beranda ---------- */
+.band--tint { background: var(--glass-2); }
+.sec-title { font-weight: 600; letter-spacing: -0.035em; }
+.sec-lead { font-size: 17.5px; }
+
+.cats { gap: 32px 22px; }
+.cat__txt b { font-weight: 600; }
+.cat--per { border-top: 1px solid var(--line); padding-top: 20px; }
+
+/* paket sebagai panel kaca di atas bidang shallow */
+.bundles { border: 0; display: grid; gap: 14px; }
+.bundle {
+  background: rgba(255, 255, 255, 0.75); border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--r-panel); padding: clamp(22px, 3vw, 34px);
+  box-shadow: 0 1px 0 rgba(7, 59, 69, 0.04);
+}
+.bundle h3 { font-weight: 600; }
+.bundle__save { display: inline-block; color: #0b6b5a; background: #d5f3ea; padding: 3px 10px; border-radius: 999px; font-size: 13px; }
+
+/* gaya aquascape: tab bersegmen */
+.styles__tabs button { border-left: 0; border-radius: 14px; font-size: 19px; padding: 13px 18px; }
+.styles__tabs button.is-on { background: #fff; color: var(--tank); box-shadow: var(--shadow-float); }
+.style__scene, .studio__art, .about__scene { border-radius: var(--r-panel); background: var(--abyss); }
+.style__needs { border-color: var(--line); }
+@media (max-width: 760px) {
+  .styles__tabs { background: #fff; padding: 4px; border-radius: 999px; border: 1px solid var(--line); gap: 0; }
+  .styles__tabs button { border: 0; border-radius: 999px; padding: 9px 14px; font-size: 15px; flex: 1; }
+  .styles__tabs button.is-on { background: var(--tank); color: #fff; box-shadow: none; }
+}
+
+.specimen__note { border-left-color: var(--current); border-left-width: 2px; color: var(--tank); }
+
+/* bagian gelap: cahaya kaustik lembut dari permukaan */
+.band--tank {
+  background:
+    radial-gradient(60% 50% at 15% 0%, rgba(47, 179, 196, 0.22), transparent 70%),
+    radial-gradient(50% 60% at 95% 100%, rgba(127, 224, 214, 0.1), transparent 70%),
+    var(--abyss);
+}
+.care__list .icon { color: var(--lime); }
+.care__list dd, .band--tank .sec-lead { color: #a3c4c8; }
+
+.guide__art { border-radius: var(--r-tile); }
+.guide-list--full { border-top: 1px solid var(--line); }
+
+.studio { padding-top: clamp(40px, 6vw, 80px); }
+.studio__in {
+  background: #fff; border-radius: calc(var(--r-panel) + 8px); padding: clamp(24px, 4vw, 56px);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+/* ---------- Halaman dalam ---------- */
+.page { padding-top: calc(var(--head) + 52px); }
+.page__title { font-weight: 600; }
+.crumbs a:hover { color: var(--current); }
+
+input[type="search"], input[type="text"], input:not([type]), input[type="number"], select, textarea {
+  background: #fff; border: 1px solid rgba(7, 59, 69, 0.16); border-radius: 12px;
+}
+input:hover, select:hover, textarea:hover { border-color: rgba(7, 59, 69, 0.32); }
+input:focus, select:focus, textarea:focus { border-color: var(--current); box-shadow: 0 0 0 4px rgba(15, 127, 136, 0.14); }
+
+.filters {
+  background: #fff; border-radius: var(--r-panel); padding: 22px; box-shadow: inset 0 0 0 1px var(--line);
+}
+.catlist a { border: 0; border-radius: 10px; padding: 8px 10px; margin-inline: -10px; }
+.catlist a:hover { background: var(--glass); }
+.catlist a[aria-current] { background: var(--glass-2); color: var(--tank); font-weight: 600; }
+.seg { background: var(--glass); border: 0; padding: 3px; gap: 2px; }
+.seg span { border-radius: 999px; }
+.seg input:checked + span { background: #fff; color: var(--tank); box-shadow: 0 1px 3px rgba(4, 34, 42, 0.14); }
+.check input { accent-color: var(--current); }
+@media (max-width: 860px) {
+  .filters { padding: 16px; }
+  .catlist a { margin: 0; border: 1px solid var(--line); background: #fff; }
+  .catlist a[aria-current] { background: var(--tank); color: #fff; border-color: var(--tank); }
+  .catlist a[aria-current] i { color: #a3c4c8; }
+}
+
+.pdp__price { font-weight: 600; }
+.qty { background: #fff; border: 1px solid rgba(7, 59, 69, 0.16); }
+.qty button:hover { background: var(--glass); }
+.specs { border-top: 1px solid var(--line); }
+.specs div { border-color: var(--line); }
+.note { background: #fff; border-radius: 20px; box-shadow: inset 0 0 0 1px var(--line); }
+.note--plain { background: transparent; box-shadow: none; }
+.pdp__art .plate__no { left: 20px; top: 18px; }
+.meters--lg { border-color: var(--line); }
+@media (max-width: 860px) {
+  .pdp__bar { background: rgba(255, 255, 255, 0.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+}
+
+.rows { border-top: 1px solid var(--line); }
+.order { background: #fff; border-radius: var(--r-panel); box-shadow: var(--shadow-float); top: calc(var(--head) + 32px); }
+.err { color: #b3261e; }
+.err::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; margin: 0 8px 2px 0; }
+
+.prose h2 { font-weight: 600; }
+.next { border-top: 1px solid var(--line); }
+.services { border-top: 1px solid var(--line); }
+.visit {
+  border-radius: var(--r-panel); top: calc(var(--head) + 32px);
+  background: radial-gradient(80% 60% at 0% 0%, rgba(47, 179, 196, 0.25), transparent 70%), var(--abyss);
+}
+.visit dt { color: #8fb3b7; }
+
+/* ---------- Footer & toast ---------- */
+.footer { background: var(--abyss); color: #a3c4c8; }
+.foot__fine { color: #7da2a7; }
+.toast { background: var(--abyss); box-shadow: 0 16px 40px -12px rgba(4, 34, 42, 0.5); border: 1px solid rgba(232, 244, 244, 0.08); }
+.toast::before { background: #3cc49a; box-shadow: 0 0 0 4px rgba(60, 196, 154, 0.2); }
+
+.wave { height: clamp(22px, 3vw, 36px); }
+
+/* hero mobile: tautan lewati di bawah header melayang; langkah tetap satu baris */
+@media (max-width: 899px) {
+  .hero__skip { top: 78px; }
+  .steps button { flex: none; }
+}
+
+/* pergantian halaman lebih singkat agar terasa responsif */
+.page-enter { animation-duration: 0.28s; }
+.empty h1, .empty h2, .empty h3 { line-height: 1.12; text-wrap: balance; }

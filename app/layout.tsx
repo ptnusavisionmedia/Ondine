@@ -4,6 +4,7 @@ import "@fontsource-variable/literata";
 import "@fontsource-variable/literata/wght-italic.css";
 import "./styles/style.css";
 import "./styles/refine.css";
+import "./styles/theme.css";
 
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";

@@ -135,9 +135,9 @@ export function createScene(canvas: HTMLCanvasElement) {
 
     /* ---- ruangan ---- */
     const bg = ctx.createLinearGradient(0, 0, 0, H);
-    bg.addColorStop(0, "#0b2a27");
-    bg.addColorStop(0.7, "#071d1c");
-    bg.addColorStop(1, "#051413");
+    bg.addColorStop(0, "#0a2e38");
+    bg.addColorStop(0.7, "#05202a");
+    bg.addColorStop(1, "#03151c");
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, W, H);
 
@@ -156,11 +156,11 @@ export function createScene(canvas: HTMLCanvasElement) {
     ctx.fillStyle = "rgba(0,0,0,.38)";
     ctx.fillRect(tx - 18, cy0 + 6, tw + 36, cabH);
     const cab = ctx.createLinearGradient(0, cy0, 0, cy0 + cabH);
-    cab.addColorStop(0, "#20382f");
-    cab.addColorStop(1, "#0f211d");
+    cab.addColorStop(0, "#1c3a42");
+    cab.addColorStop(1, "#0c2229");
     ctx.fillStyle = cab;
     ctx.fillRect(tx - 14, cy0, tw + 28, cabH);
-    ctx.fillStyle = "#33564a";
+    ctx.fillStyle = "#33575f";
     ctx.fillRect(tx - 14, cy0, tw + 28, 3);
     ctx.fillStyle = "rgba(0,0,0,.35)";
     ctx.fillRect(tx - 14 + (tw + 28) / 2 - 1, cy0 + 10, 2, cabH);
@@ -197,9 +197,9 @@ export function createScene(canvas: HTMLCanvasElement) {
     const wy = ty + th * (1 - water * 0.94);
     if (water > 0) {
       const g = ctx.createLinearGradient(0, wy, 0, ty + th);
-      g.addColorStop(0, "#2f9088");
-      g.addColorStop(0.45, "#17615e");
-      g.addColorStop(1, "#093434");
+      g.addColorStop(0, "#2b93a3");
+      g.addColorStop(0.45, "#126270");
+      g.addColorStop(1, "#07323e");
       ctx.fillStyle = g;
       ctx.fillRect(tx, wy, tw, ty + th - wy);
 
