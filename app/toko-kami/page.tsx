@@ -21,7 +21,7 @@ export default function Page() {
         </p>
       </header>
       <div className="about__scene">
-        <Scene kind="jungle" />
+        <Scene kind="jungle" sizes="(max-width: 1200px) 100vw, 1200px" priority />
       </div>
       <div className="about">
         <div className="prose prose--serif">

@@ -27,7 +27,7 @@ export default function Page() {
             <li key={g.id}>
               <Link href={`/panduan/${g.id}`}>
                 <span className="guide__art guide__art--sm" data-cat={p.cat}>
-                  <Plate p={p} />
+                  <Plate p={p} sizes="(max-width: 700px) 30vw, 240px" />
                 </span>
                 <span>
                   <h2>{g.title}</h2>

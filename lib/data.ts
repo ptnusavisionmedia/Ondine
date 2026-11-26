@@ -26,7 +26,7 @@ export interface Category {
 
 export const CATEGORIES: Category[] = [
   { id: "tanaman", name: "Tanaman", blurb: "Stem, rosette, karpet, dan lumut. Dikirim basah, bebas siput." },
-  { id: "hardscape", name: "Batu dan kayu", blurb: "Kerangka tata letak. Dipilih per potong, difoto per potong." },
+  { id: "hardscape", name: "Batu dan kayu", blurb: "Kerangka tata letak. Dipilih per potong." },
   { id: "substrat", name: "Substrat", blurb: "Soil nutrisi, pasir, dan kerikil untuk dasar tangki." },
   { id: "fauna", name: "Ikan dan udang", blurb: "Hasil tangkar lokal, dikarantina 14 hari sebelum dijual." },
   { id: "akuarium", name: "Akuarium dan lampu", blurb: "Kaca bening low-iron dan LED spektrum penuh." },

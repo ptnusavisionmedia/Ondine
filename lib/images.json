@@ -1,0 +1,216 @@
+{
+  "products": {
+    "rotala-rotundifolia-hra": {
+      "src": "/assets/ondine/products/rotala-rotundifolia-hra.webp",
+      "width": 627,
+      "height": 627
+    },
+    "ludwigia-super-red": {
+      "src": "/assets/ondine/products/ludwigia-super-red.webp",
+      "width": 627,
+      "height": 627
+    },
+    "hygrophila-pinnatifida": {
+      "src": "/assets/ondine/products/hygrophila-pinnatifida.webp",
+      "width": 627,
+      "height": 627
+    },
+    "anubias-nana": {
+      "src": "/assets/ondine/products/anubias-nana.webp",
+      "width": 627,
+      "height": 627
+    },
+    "java-fern-narrow": {
+      "src": "/assets/ondine/products/java-fern-narrow.webp",
+      "width": 627,
+      "height": 627
+    },
+    "cryptocoryne-wendtii": {
+      "src": "/assets/ondine/products/cryptocoryne-wendtii.webp",
+      "width": 627,
+      "height": 627
+    },
+    "echinodorus-ozelot": {
+      "src": "/assets/ondine/products/echinodorus-ozelot.webp",
+      "width": 660,
+      "height": 660
+    },
+    "bucephalandra-kedagang": {
+      "src": "/assets/ondine/products/bucephalandra-kedagang.webp",
+      "width": 627,
+      "height": 627
+    },
+    "monte-carlo": {
+      "src": "/assets/ondine/products/monte-carlo.webp",
+      "width": 627,
+      "height": 627
+    },
+    "hairgrass-eleocharis": {
+      "src": "/assets/ondine/products/hairgrass-eleocharis.webp",
+      "width": 627,
+      "height": 627
+    },
+    "java-moss": {
+      "src": "/assets/ondine/products/java-moss.webp",
+      "width": 627,
+      "height": 627
+    },
+    "riccia-fluitans": {
+      "src": "/assets/ondine/products/riccia-fluitans.webp",
+      "width": 627,
+      "height": 627
+    },
+    "batu-seiryu": {
+      "src": "/assets/ondine/products/batu-seiryu.webp",
+      "width": 540,
+      "height": 540
+    },
+    "dragon-stone": {
+      "src": "/assets/ondine/products/dragon-stone.webp",
+      "width": 540,
+      "height": 540
+    },
+    "batu-frodo": {
+      "src": "/assets/ondine/products/batu-frodo.webp",
+      "width": 540,
+      "height": 540
+    },
+    "spiderwood": {
+      "src": "/assets/ondine/products/spiderwood.webp",
+      "width": 540,
+      "height": 540
+    },
+    "akar-bakau": {
+      "src": "/assets/ondine/products/akar-bakau.webp",
+      "width": 540,
+      "height": 540
+    },
+    "aquasoil-hitam": {
+      "src": "/assets/ondine/products/aquasoil-hitam.webp",
+      "width": 627,
+      "height": 627
+    },
+    "pasir-silika-putih": {
+      "src": "/assets/ondine/products/pasir-silika-putih.webp",
+      "width": 627,
+      "height": 627
+    },
+    "pasir-vulkanik-hitam": {
+      "src": "/assets/ondine/products/pasir-vulkanik-hitam.webp",
+      "width": 627,
+      "height": 627
+    },
+    "laterit-dasar": {
+      "src": "/assets/ondine/products/laterit-dasar.webp",
+      "width": 627,
+      "height": 627
+    },
+    "neon-tetra": {
+      "src": "/assets/ondine/products/neon-tetra.webp",
+      "width": 627,
+      "height": 627
+    },
+    "ember-tetra": {
+      "src": "/assets/ondine/products/ember-tetra.webp",
+      "width": 627,
+      "height": 627
+    },
+    "harlequin-rasbora": {
+      "src": "/assets/ondine/products/harlequin-rasbora.webp",
+      "width": 627,
+      "height": 627
+    },
+    "otocinclus": {
+      "src": "/assets/ondine/products/otocinclus.webp",
+      "width": 627,
+      "height": 627
+    },
+    "corydoras-panda": {
+      "src": "/assets/ondine/products/corydoras-panda.webp",
+      "width": 627,
+      "height": 627
+    },
+    "red-cherry-shrimp": {
+      "src": "/assets/ondine/products/red-cherry-shrimp.webp",
+      "width": 627,
+      "height": 627
+    },
+    "crystal-red-shrimp": {
+      "src": "/assets/ondine/products/crystal-red-shrimp.webp",
+      "width": 627,
+      "height": 627
+    },
+    "akuarium-60": {
+      "src": "/assets/ondine/products/akuarium-60.webp",
+      "width": 681,
+      "height": 681
+    },
+    "akuarium-90": {
+      "src": "/assets/ondine/products/akuarium-90.webp",
+      "width": 681,
+      "height": 681
+    },
+    "led-60": {
+      "src": "/assets/ondine/products/led-60.webp",
+      "width": 681,
+      "height": 681
+    },
+    "led-90": {
+      "src": "/assets/ondine/products/led-90.webp",
+      "width": 681,
+      "height": 681
+    },
+    "set-co2": {
+      "src": "/assets/ondine/products/set-co2.webp",
+      "width": 900,
+      "height": 900
+    },
+    "filter-canister": {
+      "src": "/assets/ondine/products/filter-canister.webp",
+      "width": 681,
+      "height": 681
+    },
+    "heater-100": {
+      "src": "/assets/ondine/products/heater-100.webp",
+      "width": 900,
+      "height": 900
+    },
+    "pupuk-makro": {
+      "src": "/assets/ondine/products/pupuk-makro.webp",
+      "width": 681,
+      "height": 681
+    },
+    "pupuk-mikro": {
+      "src": "/assets/ondine/products/pupuk-mikro.webp",
+      "width": 681,
+      "height": 681
+    },
+    "gunting-lurus": {
+      "src": "/assets/ondine/products/gunting-lurus.webp",
+      "width": 681,
+      "height": 681
+    },
+    "pinset-lurus": {
+      "src": "/assets/ondine/products/pinset-lurus.webp",
+      "width": 681,
+      "height": 681
+    }
+  },
+  "styles": {
+    "iwagumi": {
+      "src": "/assets/ondine/styles/iwagumi.webp",
+      "width": 1536,
+      "height": 1024
+    },
+    "nature": {
+      "src": "/assets/ondine/styles/nature.webp",
+      "width": 1536,
+      "height": 1024
+    },
+    "jungle": {
+      "src": "/assets/ondine/styles/jungle.webp",
+      "width": 1536,
+      "height": 1024
+    }
+  }
+}

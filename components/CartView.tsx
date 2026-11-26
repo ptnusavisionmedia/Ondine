@@ -83,7 +83,7 @@ export function CartView() {
         {head}
         <div className="empty empty--art">
           <div className="empty__art" data-cat="akuarium">
-            <Plate p={byId("akuarium-60")!} />
+            <Plate p={byId("akuarium-60")!} sizes="240px" />
           </div>
           <div>
             <h2>Keranjang masih kosong</h2>
@@ -140,7 +140,7 @@ export function CartView() {
             return (
               <li className="row" key={p.id}>
                 <Link className="row__art" data-cat={p.cat} href={`/produk/${p.id}`}>
-                  <Plate p={p} />
+                  <Plate p={p} sizes="96px" />
                 </Link>
                 <div className="row__info">
                   <Link className="row__name" href={`/produk/${p.id}`}>

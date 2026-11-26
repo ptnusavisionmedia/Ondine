@@ -45,7 +45,7 @@ export default async function Page({ params }: Props) {
           </p>
         </div>
         <div className="article__art" data-cat={art.cat} aria-hidden="true">
-          <Plate p={art} />
+          <Plate p={art} sizes="40vw" />
         </div>
       </div>
       <div className="prose prose--serif">

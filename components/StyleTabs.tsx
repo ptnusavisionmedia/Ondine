@@ -49,7 +49,7 @@ export function StyleTabs() {
               return (
                 <li key={id} data-cat={p.cat}>
                   <Link className="style__thumb" href={`/produk/${p.id}`} aria-hidden="true" tabIndex={-1}>
-                    <Plate p={p} />
+                    <Plate p={p} sizes="80px" />
                   </Link>
                   <Link className="style__name" href={`/produk/${p.id}`}>
                     {p.name}

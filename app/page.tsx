@@ -45,7 +45,7 @@ export default function Home() {
               return (
                 <Link key={c.id} className={`cat cat--${CAT_AREA[c.id]}`} data-cat={c.id} href={`/toko/${c.id}`}>
                   <span className="cat__art">
-                    <Plate p={sample} />
+                    <Plate p={sample} sizes="(max-width: 700px) 100vw, 40vw" />
                   </span>
                   <span className="cat__txt">
                     <b>{c.name}</b>
@@ -62,7 +62,7 @@ export default function Home() {
       <section className="band band--pad0">
         <div className="wrap specimen">
           <Link className="specimen__art" data-cat={spec.cat} href={`/produk/${spec.id}`} aria-label={spec.name}>
-            <Plate p={spec} />
+            <Plate p={spec} sizes="(max-width: 860px) 100vw, 45vw" />
             <span className="plate__no">{code(spec)}</span>
           </Link>
           <div className="specimen__body">
@@ -221,7 +221,7 @@ export default function Home() {
                 <li key={g.id}>
                   <Link href={`/panduan/${g.id}`}>
                     <span className="guide__art" data-cat={p.cat}>
-                      <Plate p={p} />
+                      <Plate p={p} sizes="(max-width: 700px) 100vw, 33vw" />
                     </span>
                     <h3>{g.title}</h3>
                     <p>{g.summary}</p>

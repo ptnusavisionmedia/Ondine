@@ -63,9 +63,10 @@ export default async function Page({ params }: Props) {
       />
       <div className="pdp">
         <div className="pdp__art" data-cat={p.cat}>
-          <Plate p={p} />
+          <Plate p={p} sizes="(max-width: 860px) 100vw, 50vw" priority />
           <span className="plate__no">{code(p)}</span>
           {p.tag && <span className="plate__tag">{p.tag}</span>}
+          <p className="pdp__artnote">Gambar ilustrasi; bentuk produk dapat berbeda.</p>
         </div>
         <div className="pdp__info">
           <h1 className="pdp__title">{p.name}</h1>

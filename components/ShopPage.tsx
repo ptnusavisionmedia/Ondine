@@ -27,7 +27,7 @@ export function ShopPage({ cat }: { cat?: CatId }) {
           </p>
         </div>
         <div className="page__plate" data-cat={sample.cat} aria-hidden="true">
-          <Plate p={sample} />
+          <Plate p={sample} sizes="(max-width: 700px) 50vw, 320px" />
         </div>
       </header>
       {/* Fallback statis berisi semua produk supaya HTML hasil build tetap lengkap untuk mesin pencari */}
