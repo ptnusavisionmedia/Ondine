@@ -2,152 +2,351 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { createScene, STAGES } from "@/lib/scene";
+import { assemblyAt, STAGES } from "@/lib/aquarium/assembly";
+import { createScene } from "@/lib/scene";
+import "@/app/styles/aquarium.css";
 
 const HERO_COPY = [
   {
-    t: "Mulai dari air yang tenang.",
-    p: "Akuarium kaca low-iron 60 sampai 90 cm dengan sambungan silikon yang rapi.",
+    title: "Sungai kecil",
+    accent: "di balik kaca.",
+    text: "Mulai dari tangki kaca kosong. Gulir untuk mengisi air, menata dasar akuarium, lalu menghadirkan kawanan neon tetra.",
     cta: "Lihat akuarium",
   },
   {
-    t: "Dasar yang memberi makan akar.",
-    p: "Soil nutrisi, pasir silika, dan laterit untuk setiap jenis tata letak.",
+    title: "Alur pasir",
+    accent: "di dasar air.",
+    text: "Pasir terang membentuk alur di dasar akuarium. Di kedua sisinya, lapisan soil menyediakan tempat bagi akar tanaman.",
     cta: "Belanja substrat",
   },
   {
-    t: "Batu menentukan wataknya.",
-    p: "Seiryu, dragon stone, dan batu Frodo. Dipilih dan difoto per potong.",
+    title: "Watak batu",
+    accent: "sungai.",
+    text: "Batu utama berdiri miring. Pecahan yang lebih kecil mengikuti arah seratnya dan membentuk tepian alur pasir.",
     cta: "Belanja batu dan kayu",
   },
   {
-    t: "Kayu memberi umur.",
-    p: "Spiderwood dan akar bakau yang sudah direbus, tanpa air cokelat.",
+    title: "Lengkung",
+    accent: "kayu tua.",
+    text: "Cabang spiderwood membentang di atas batu. Di bawahnya, ikan mendapat celah teduh untuk melintas.",
     cta: "Belanja batu dan kayu",
   },
   {
-    t: "Lalu hijau mulai tumbuh.",
-    p: "Stem, rosette, karpet, dan lumut. Dikirim basah dan bebas siput.",
+    title: "Hijau yang",
+    accent: "mengalir.",
+    text: "Rumpun daun tinggi bergerak pelan mengikuti arus, sementara tanaman karpet merambat di dekat dasar.",
     cta: "Belanja tanaman",
   },
   {
-    t: "Terakhir, penghuninya.",
-    p: "Ikan dan udang tangkar lokal, dikarantina 14 hari sebelum dijual.",
+    title: "Sekawanan",
+    accent: "neon tetra.",
+    text: "Garis biru pada sisi tubuh tetra menangkap cahaya saat kawanan berbelok di antara tanaman.",
     cta: "Belanja ikan dan udang",
   },
 ];
 
-const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-const prefersReduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+function Arrow({ down = false }: { down?: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      width="16"
+      height="16"
+      fill="none"
+      aria-hidden="true"
+      className={down ? "aquascape__down" : undefined}
+    >
+      <path
+        d="M3 10h13m-5-5 5 5-5 5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
-/* Akuarium yang tersusun mengikuti scroll (canvas). */
+const motionPreference = "(prefers-reduced-motion: reduce)";
+const postersByStage = ["kosong", "air", "substrat", "batu", "kayu", "tanaman", "ondine"];
+
 export function Hero() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const postersRef = useRef<HTMLDivElement>(null);
   const railRef = useRef<HTMLElement>(null);
+  const pausedRef = useRef(false);
+  const requestDraw = useRef<(() => void) | null>(null);
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     const track = trackRef.current!;
+    const stage = stageRef.current!;
+    const canvas = canvasRef.current!;
+    const posters = Array.from(postersRef.current!.children) as HTMLElement[];
     const rail = railRef.current!;
-    const scene = createScene(canvasRef.current!);
-    const reduced = prefersReduced();
+    const preference = window.matchMedia(motionPreference);
+    let scene: ReturnType<typeof createScene> = null;
+    let initialized = false;
+    let frame = 0;
+    let lastTime = 0;
+    let elapsed = 0;
+    let trackTop = 0;
+    let trackHeight = 0;
+    let scrollRange = 1;
+    let onscreen = false;
     let target = 0;
-    let current = 0;
-    let raf = 0;
-    let visible = true;
-    let last = -1;
+    let progress = 0;
+    let displayed = -1;
+    let chapterIndex = 0;
+    let layers = assemblyAt(0);
+    const posterLoads = new Map<number, HTMLImageElement>();
+    const readyPosters = new Set([0]);
 
-    const measure = () => {
-      const r = track.getBoundingClientRect();
-      const scrollable = r.height - innerHeight;
-      target = scrollable > 0 ? clamp(-r.top / scrollable) : 0;
-      visible = r.bottom > 0 && r.top < innerHeight;
-      document.body.dataset.hero = r.top <= 8 && r.bottom > 80 ? "on" : "off";
-    };
+    function stopFrame() {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      lastTime = 0;
+    }
 
-    const frame = (ms: number) => {
-      measure();
-      current = reduced ? target : current + (target - current) * 0.12;
-      if (Math.abs(target - current) < 0.0005) current = target;
-      if (visible) {
-        scene.draw(current, reduced ? 0 : ms / 1000);
-        rail.style.transform = `scaleY(${current})`;
-        let idx = 0;
-        STAGES.forEach((s, i) => {
-          if (current >= s.at - 0.0001) idx = i;
-        });
-        if (idx !== last) {
-          last = idx;
-          setActive(idx);
-        }
+    function schedule() {
+      if (!frame && onscreen && !document.hidden) frame = requestAnimationFrame(render);
+    }
+
+    function loadPoster(index: number) {
+      if (readyPosters.has(index) || posterLoads.has(index)) return;
+      const image = new Image();
+      posterLoads.set(index, image);
+      image.onload = () => {
+        posters[index].style.backgroundImage = `url("${image.src}")`;
+        readyPosters.add(index);
+        schedule();
+      };
+      image.src = `/images/akuarium-${postersByStage[index]}.webp`;
+    }
+
+    function drawPosters() {
+      const nextLayer = layers.findIndex((value) => value < 1);
+      const low = nextLayer < 0 ? layers.length : nextLayer;
+      const high = Math.min(low + 1, layers.length);
+      loadPoster(low);
+      loadPoster(high);
+      // Keep the last available earlier stage visible while the next image is loading.
+      let base = low;
+      while (!readyPosters.has(base)) base--;
+      const mix = high !== low && readyPosters.has(high) ? layers[low] : 0;
+      for (let i = 0; i < posters.length; i++) {
+        posters[i].style.opacity = String(i === base ? 1 - mix : i === high ? mix : 0);
       }
-      raf = requestAnimationFrame(frame);
-    };
+    }
 
-    const onResize = () => scene.resize();
-    addEventListener("resize", onResize);
-    measure();
-    current = target;
-    raf = requestAnimationFrame(frame);
+    function render(now: number) {
+      frame = 0;
+      if (!onscreen || document.hidden) return;
+
+      if (!initialized) {
+        initialized = true;
+        scene = createScene(canvas);
+        scene?.resize();
+      }
+
+      const delta = lastTime ? Math.min((now - lastTime) / 1000, 0.08) : 1 / 60;
+      lastTime = now;
+      const playing = !preference.matches && !pausedRef.current;
+      if (preference.matches || Math.abs(target - progress) < 0.0001) {
+        progress = target;
+      } else {
+        progress += (target - progress) * (1 - Math.exp(-delta * 13));
+      }
+
+      if (displayed !== progress) {
+        layers = assemblyAt(progress);
+        rail.style.transform = `scaleX(${progress})`;
+        const index = STAGES.reduce((selected, step, i) => (progress >= step.at ? i : selected), 0);
+        if (index !== chapterIndex) {
+          chapterIndex = index;
+          setActive(index);
+        }
+        displayed = progress;
+      }
+      const moving = scene && playing && layers[0] > 0;
+      if (moving) elapsed += delta;
+      if (scene) {
+        scene.draw(progress, elapsed);
+        if (!stage.dataset.live) stage.dataset.live = "true";
+      } else drawPosters();
+
+      if (moving || target !== progress) schedule();
+      else lastTime = 0;
+    }
+
+    function onScroll() {
+      const offset = window.scrollY - trackTop;
+      target = Math.min(1, Math.max(0, offset / scrollRange));
+      onscreen = offset < trackHeight && offset > -window.innerHeight;
+      const headerMode = offset >= -8 && offset < trackHeight - 80 ? "on" : "off";
+      if (document.body.dataset.hero !== headerMode) document.body.dataset.hero = headerMode;
+      if (onscreen) schedule();
+      else {
+        stopFrame();
+        progress = target;
+      }
+    }
+
+    function onResize() {
+      trackTop = track.getBoundingClientRect().top + window.scrollY;
+      trackHeight = track.offsetHeight;
+      scrollRange = Math.max(1, trackHeight - stage.offsetHeight);
+      scene?.resize();
+      onScroll();
+    }
+
+    function onVisibility() {
+      if (document.hidden) stopFrame();
+      else onScroll();
+    }
+
+    function onContextLost(event: Event) {
+      event.preventDefault();
+      delete stage.dataset.live;
+      scene?.dispose();
+      scene = null;
+      initialized = true;
+      schedule();
+    }
+
+    function onContextRestored() {
+      initialized = false;
+      schedule();
+    }
+
+    requestDraw.current = schedule;
+    canvas.addEventListener("webglcontextlost", onContextLost);
+    canvas.addEventListener("webglcontextrestored", onContextRestored);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    document.addEventListener("visibilitychange", onVisibility);
+    preference.addEventListener("change", schedule);
+    const observer = new ResizeObserver(onResize);
+    observer.observe(canvas);
+    onResize();
+    progress = target;
 
     return () => {
-      cancelAnimationFrame(raf);
-      removeEventListener("resize", onResize);
+      stopFrame();
+      for (const image of posterLoads.values()) image.onload = null;
+      observer.disconnect();
+      canvas.removeEventListener("webglcontextlost", onContextLost);
+      canvas.removeEventListener("webglcontextrestored", onContextRestored);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      document.removeEventListener("visibilitychange", onVisibility);
+      preference.removeEventListener("change", schedule);
+      requestDraw.current = null;
+      scene?.dispose();
+      delete stage.dataset.live;
       delete document.body.dataset.hero;
     };
   }, []);
 
-  const goTo = (i: number) => {
+  function togglePlayback() {
+    pausedRef.current = !pausedRef.current;
+    setPaused(pausedRef.current);
+    requestDraw.current?.();
+  }
+
+  function goTo(index: number) {
     const track = trackRef.current!;
-    const scrollable = track.offsetHeight - innerHeight;
-    const top = track.getBoundingClientRect().top + scrollY;
-    scrollTo({
-      top: top + (STAGES[i].at + (i === 0 ? 0.001 : 0.01)) * scrollable,
-      behavior: prefersReduced() ? "auto" : "smooth",
+    const range = track.offsetHeight - stageRef.current!.offsetHeight;
+    const top = track.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({
+      top: top + Math.ceil(STAGES[index].viewAt * range),
+      behavior: window.matchMedia(motionPreference).matches ? "instant" : "smooth",
     });
-  };
+  }
 
   return (
-    <section className="hero" aria-label="Akuarium yang tersusun saat Anda menggulir">
+    <section className="hero aquascape" aria-label="Rangkai akuarium Ondine">
       <div className="hero__track" ref={trackRef}>
-        <div className="hero__stage">
-          <canvas ref={canvasRef} className="hero__canvas" aria-hidden="true" />
+        <div className="hero__stage" ref={stageRef}>
+          <div
+            className="aquascape__view"
+            role="img"
+            aria-label="Tangki kaca kosong yang terisi air, substrat, batu, kayu, tanaman, dan ikan saat halaman digulir."
+          >
+            <div ref={postersRef} className="aquascape__posters" aria-hidden="true">
+              {postersByStage.map((name) => (
+                <span key={name} />
+              ))}
+            </div>
+            <canvas ref={canvasRef} className="hero__canvas" aria-hidden="true" />
+          </div>
           <div className="hero__copy">
-            {HERO_COPY.map((c, i) => {
+            {HERO_COPY.map((chapter, i) => {
               const on = i === active;
+              const Heading = i === 0 ? "h1" : "h2";
               return (
-                <div key={i} className={`chapter ${on ? "is-on" : ""}`} inert={!on} aria-hidden={!on}>
-                  {i === 0 ? <h1 className="chapter__t">{c.t}</h1> : <h2 className="chapter__t">{c.t}</h2>}
-                  <p className="chapter__p">{c.p}</p>
+                <div
+                  key={STAGES[i].key}
+                  className={`chapter ${on ? "is-on" : ""}`}
+                  inert={!on}
+                  aria-hidden={!on}
+                >
+                  <Heading className="chapter__t">
+                    {chapter.title} <em>{chapter.accent}</em>
+                  </Heading>
+                  <p className="chapter__p">{chapter.text}</p>
                   <Link className="btn btn--light" href={STAGES[i].href}>
-                    {c.cta}
+                    {chapter.cta} <Arrow />
                   </Link>
                 </div>
               );
             })}
           </div>
-          <ol className="steps" aria-label="Tahap menyusun akuarium">
-            {STAGES.map((s, i) => (
-              <li key={s.key}>
+          <div className="aquascape__footer">
+            <div className="aquascape__tools">
+              <p className="hero__hint">
+                <Arrow down /> Gulir untuk merakit
+              </p>
+              <div className="aquascape__actions">
                 <button
+                  className="aquascape__playback"
                   type="button"
-                  className={[i === active && "is-on", i < active && "is-done"].filter(Boolean).join(" ")}
-                  aria-current={i === active ? "step" : undefined}
-                  onClick={() => goTo(i)}
+                  aria-label={paused ? "Putar animasi akuarium" : "Jeda animasi akuarium"}
+                  title={paused ? "Putar animasi" : "Jeda animasi"}
+                  onClick={togglePlayback}
                 >
-                  <span className="steps__n">{i + 1}</span>
-                  {s.label}
+                  <svg viewBox="0 0 20 20" width="15" height="15" fill="currentColor" aria-hidden="true">
+                    {paused ? <path d="m6 3.5 10 6.5-10 6.5z" /> : <path d="M5 4h3v12H5zm7 0h3v12h-3z" />}
+                  </svg>
                 </button>
-              </li>
-            ))}
-          </ol>
-          <p className="hero__hint">Gulir untuk menyusunnya</p>
-          <Link className="hero__skip" href="/toko">
-            Lewati, langsung belanja
-          </Link>
-          <div className="hero__rail" aria-hidden="true">
-            <i ref={railRef} />
+                <Link className="hero__skip" href="/toko">
+                  Langsung ke toko <Arrow />
+                </Link>
+              </div>
+            </div>
+            <nav aria-label="Tahap merakit akuarium">
+              <div className="hero__rail" aria-hidden="true">
+                <i ref={railRef} />
+              </div>
+              <ol className="steps">
+                {STAGES.map((step, i) => (
+                  <li key={step.key}>
+                    <button
+                      type="button"
+                      aria-current={i === active ? "step" : undefined}
+                      onClick={() => goTo(i)}
+                    >
+                      <span className="steps__n" aria-hidden="true">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      {step.label}
+                    </button>
+                  </li>
+                ))}
+              </ol>
+            </nav>
           </div>
         </div>
       </div>
