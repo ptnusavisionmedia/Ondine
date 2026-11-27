@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CATEGORIES, STORE } from "@/lib/data";
-import { Mark } from "./Mark";
+import { BrandLogo } from "./BrandLogo";
 import { Wave } from "./Wave";
 
 export function Footer() {
@@ -10,8 +10,7 @@ export function Footer() {
       <div className="wrap foot">
         <div className="foot__brand">
           <p className="logo">
-            <Mark />
-            <span>{STORE.name}</span>
+            <BrandLogo />
           </p>
           <p>{STORE.tagline}.</p>
           <p>

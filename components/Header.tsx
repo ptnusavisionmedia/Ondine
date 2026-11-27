@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { cartCount, useCart } from "@/lib/cart-store";
-import { Mark } from "./Mark";
+import { BrandLogo } from "./BrandLogo";
 
 const NAV = [
   { href: "/toko", label: "Toko" },
@@ -34,8 +34,7 @@ export function Header() {
   return (
     <header className="top" id="top">
       <Link className="logo" href="/" aria-label="Ondine, ke beranda">
-        <Mark />
-        <span>Ondine</span>
+        <BrandLogo inHeader />
       </Link>
       <nav className={`nav ${open ? "is-open" : ""}`} id="nav" aria-label="Utama">
         {NAV.map((n) => (

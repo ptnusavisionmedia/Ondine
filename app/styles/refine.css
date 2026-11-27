@@ -11,8 +11,6 @@ body {
 
 /* merek */
 .logo { display: inline-flex; align-items: center; gap: 9px; }
-.mark { width: 24px; height: 24px; flex: none; }
-.foot .logo .mark { width: 28px; height: 28px; }
 
 /* pergantian halaman dan keranjang */
 .page-enter { animation: pageIn 0.45s var(--ease) both; }
